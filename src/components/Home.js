@@ -6,11 +6,20 @@ import Movies from "./Movies";
 import db from "../firebase";
 import { useDispatch } from "react-redux";
 import { setMovies } from "../features/movie/movieSlice";
+import { auth } from "../firebase";
+import { useHistory } from "react-router-dom";
 
 function Home() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        history.push("/login");
+      }
+    });
+
     db.collection("movies").onSnapshot((snapshot) => {
       let tempMovies = snapshot.docs.map((doc) => {
         return { id: doc.id, ...doc.data() };
