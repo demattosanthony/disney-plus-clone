@@ -7,18 +7,70 @@ import { useSelector } from "react-redux";
 function Movies() {
   const movies = useSelector(selectMovies);
 
+  console.log(movies);
+
   return (
     <Container>
       <h4>Recommened for You</h4>
       <Content>
         {movies &&
-          movies.map((movie) => (
-            <Wrap key={movie.id}>
-              <Link to={`/detail/${movie.id}`}>
-                <img src={movie.cardImg} />
-              </Link>
-            </Wrap>
-          ))}
+          movies.map((movie) => {
+            console.log("movie type", movie.type);
+            if (movie.type === "recommend") {
+              return (
+                <Wrap key={movie.id}>
+                  <Link to={`/detail/${movie.id}`}>
+                    <img src={movie.cardImg} />
+                  </Link>
+                </Wrap>
+              );
+            }
+          })}
+      </Content>
+      <h4>New to Disnet+</h4>
+      <Content>
+        {movies &&
+          movies.map((movie) => {
+            if (movie.type === "new") {
+              return (
+                <Wrap key={movie.id}>
+                  <Link to={`/detail/${movie.id}`}>
+                    <img src={movie.cardImg} />
+                  </Link>
+                </Wrap>
+              );
+            }
+          })}
+      </Content>
+      <h4>Trending</h4>
+      <Content>
+        {movies &&
+          movies.map((movie) => {
+            if (movie.type === "trending") {
+              return (
+                <Wrap key={movie.id}>
+                  <Link to={`/detail/${movie.id}`}>
+                    <img src={movie.cardImg} />
+                  </Link>
+                </Wrap>
+              );
+            }
+          })}
+      </Content>
+      <h4>Disney Plus Original</h4>
+      <Content>
+        {movies &&
+          movies.map((movie) => {
+            if (movie.type === "original") {
+              return (
+                <Wrap key={movie.id}>
+                  <Link to={`/detail/${movie.id}`}>
+                    <img src={movie.cardImg} />
+                  </Link>
+                </Wrap>
+              );
+            }
+          })}
       </Content>
     </Container>
   );
